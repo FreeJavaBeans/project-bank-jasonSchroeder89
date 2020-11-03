@@ -1,8 +1,12 @@
 package com.revature.ui;
 
-public interface UI {
+import com.revature.enums.State;
+
+public abstract class UI {
 	
-	void displayHeader(String bankName);
+	private final String bankName;
 	
-	void displayMenu();
+	public UI(String bankName) {
+		this.bankName = bankName;
+	}
 }
