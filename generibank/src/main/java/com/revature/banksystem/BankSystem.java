@@ -1,5 +1,9 @@
 package com.revature.banksystem;
 
+import java.io.IOException;
+import java.util.Scanner;
+
+import com.revature.data.DataRequest;
 import com.revature.enums.State;
 import com.revature.ui.Display;
 import com.revature.ui.WelcomeUI;
@@ -10,28 +14,37 @@ import com.revature.user.User;
 public class BankSystem {
 	
 	private final String bankName;
-	private boolean validLogin;
 	private Display ui;
 	private State state;
-	private User u;
+	private User user;
+	private DataRequest request;
 	
 	public BankSystem(String bankName) {
 		this.bankName = bankName;
-		this.validLogin = false;
 		this.setSystemState(State.WELCOME);
 	}
 	
 	public void run() {
-		while(this.state != State.END_PROGRAM) {
-			ui.displayUI();
-			//int choice = prompt();
+		do {
+			setSystemState(ui.prompt());
 			
-			System.out.println("Goodbye!");
+			switch(this.state) {
+				case END_PROGRAM:
+					System.out.println("\nGoodbye!");
+					return;
+					
+				case REGISTER_USER:
+					
+			}
 			
-			setSystemState(State.END_PROGRAM);
-				
-			return;
-		}	
+			try {
+				Runtime.getRuntime().exec("clear");
+			}
+			catch (IOException e) {
+				System.out.println("It's not executing");
+			}			
+		}
+		while(true);	
 	}
 	
 	private void setSystemState(State state) {
@@ -48,11 +61,5 @@ public class BankSystem {
 				
 			
 		}
-	}
-	
-	private boolean logIn() {
-		
-		
-		return true;
 	}
 }
