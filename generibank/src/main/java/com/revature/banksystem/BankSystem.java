@@ -1,65 +1,69 @@
 package com.revature.banksystem;
 
-import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.Scanner;
 
-import com.revature.data.DataRequest;
-import com.revature.enums.State;
-import com.revature.ui.Display;
-import com.revature.ui.WelcomeUI;
-import com.revature.user.Customer;
-import com.revature.user.Employee;
+import com.revature.data.BankDAO;
+import com.revature.ui.SystemUI;
+import com.revature.user.NewUser;
 import com.revature.user.User;
 
 public class BankSystem {
 	
-	private final String bankName;
-	private Display ui;
-	private State state;
+	private Scanner input;
+	private SystemUI ui;
 	private User user;
-	private DataRequest request;
+	private BankDAO dao;
+	private ResultSet results;
+	private boolean regSuccess;
+	private boolean loginSuccess;
 	
 	public BankSystem(String bankName) {
-		this.bankName = bankName;
-		this.setSystemState(State.WELCOME);
+		this.input = new Scanner(System.in);
+		this.ui = new SystemUI(bankName, input);
+		this.dao = new BankDAO();
 	}
 	
 	public void run() {
-		do {
-			setSystemState(ui.prompt());
-			
-			switch(this.state) {
-				case END_PROGRAM:
-					System.out.println("\nGoodbye!");
-					return;
-					
-				case REGISTER_USER:
-					
-			}
-			
-			try {
-				Runtime.getRuntime().exec("clear");
-			}
-			catch (IOException e) {
-				System.out.println("It's not executing");
-			}			
-		}
-		while(true);	
-	}
-	
-	private void setSystemState(State state) {
-		this.state = state;
+		boolean run = true;
 		
-		switch (state) {
-			case WELCOME:
-				ui = new WelcomeUI(bankName);
-				
-			case LOGIN_CUSTOMER:
-				
-			default:
-				break;
-				
+		do {
+			ui.welcomePrompt(user);
 			
+			if (user == null) {
+				System.out.println("\nGoodbye!\n");
+				
+				return;
+			}
+			
+			if (user.getClass() == NewUser.class) {
+				results = dao.getUserNames();
+				
+				regSuccess = ui.regPrompt(results, user);
+				
+				if (regSuccess) {
+					dao.createNewCustomer(user);
+				}
+				
+				ui.regSuccessMessage();
+				
+				SystemUI.clearScreen();
+				
+				continue;
+			}
+			
+			else {
+				loginSuccess = user.login(results, input);
+				
+				if (loginSuccess) {
+					continue;
+				}
+				
+				else {
+					continue;
+				}
+			}
 		}
+		while(run);				
 	}
 }

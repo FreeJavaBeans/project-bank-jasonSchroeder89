@@ -5,16 +5,15 @@ import java.util.Scanner;
 
 import com.revature.data.BankDAO;
 
-public class Employee extends User{
+public class NewUser extends User{
 	
-	public Employee() {
+	public NewUser() {
 		super();
 	}
 
 	@Override
 	public boolean login(ResultSet results, Scanner input) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

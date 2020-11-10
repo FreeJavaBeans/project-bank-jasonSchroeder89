@@ -1,10 +1,10 @@
 package com.revature.ui;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.revature.data.DataRequest;
 import com.revature.enums.State;
 
 public class WelcomeUI extends UI implements Display{
@@ -19,16 +19,11 @@ public class WelcomeUI extends UI implements Display{
 	public State prompt() {
 		int choice = 0;
 		
-		System.out.println("Welcome to " + bankName + 
-				"!\n\nDigital Banking System\n"
-				
-				+ "----------------------\n");
-		
 		do {
-			System.out.print("Please select a choice from the menu below:\n"
+			System.out.print(header + menuPrompt					
 					+ "\t1) Register for an account\n" + "\t2) Customer Login\n"
 					+ "\t3) Employee Login\n" + "\t4) Exit Program\n\n"
-					+ "Please enter your choice (1-4) then press 'Enter': "
+					+ promptChoice
 					);
 			try {
 				choice = input.nextInt();
@@ -73,7 +68,7 @@ public class WelcomeUI extends UI implements Display{
 		}
 	}
 	
-	public DataRequest requestData() {
+	public PreparedStatement requestData() {
 		return null;
 	}
 }

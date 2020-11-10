@@ -1,11 +1,12 @@
 package com.revature.ui;
 
-import com.revature.data.DataRequest;
+import java.sql.PreparedStatement;
+
 import com.revature.enums.State;
 
 public interface Display {
 	
 	public State prompt();
 	
-	public DataRequest requestData();
+	public PreparedStatement requestData();
 }
