@@ -12,19 +12,6 @@ public class NewUser extends User{
 	}
 	
 	@Override
-	public int hashCode() {
-		int sum = 0;
-		
-		for (int i = 0; i < this.getUserName().length(); i++) {
-			sum += (int) this.getUserName().indexOf(i);
-		}
-		
-		sum += this.getUserName().length();
-		
-		return sum;
-	}
-
-	@Override
 	public boolean login(ResultSet results, Scanner input) {
 		return false;
 	}

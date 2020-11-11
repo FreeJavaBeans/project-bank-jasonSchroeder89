@@ -73,7 +73,7 @@ public class BankSystem {
 			}
 			
 			else {
-				loginSuccess = user.login(results, input);
+				loginSuccess = ui.login(dao, input);
 				
 				if (loginSuccess) {
 					runUserSession = true;

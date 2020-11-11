@@ -56,8 +56,6 @@ public abstract class User {
 		this.password = password;
 	}
 	
-	public abstract boolean login(ResultSet results, Scanner input);
-	
 	public abstract boolean prompt(BankDAO dao, Scanner input);
 	
 	public abstract String getType();

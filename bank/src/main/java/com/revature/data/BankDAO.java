@@ -48,8 +48,43 @@ public class BankDAO {
 		return results;
 	}
 	
+	public String getPassword(String userName) throws SQLException {
+		String password = null;
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement1 = conn.prepareStatement(
+					"select \"Password\" from \"User\" where \"UserName\" = ?"
+					);
+			
+			statement1.setString(1, userName);
+			
+			ResultSet result = statement1.executeQuery();
+			
+			statement1.close();
+			
+			conn.close();
+			
+			result.next();
+			
+			password = result.getString(1);
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}
+		
+		return password;
+	}
+	
 	public void createNewCustomer(User user) throws SQLException {
-		int newUserID = user.hashCode();
+		int newUserID = genNewUserID(user.getUserName());
 		
 		try {
 			conn = DriverManager.getConnection(
@@ -97,5 +132,11 @@ public class BankDAO {
 		}
 		
 		return;
+	}
+	
+	private int genNewUserID(String userName) {
+		int newUserID = userName.hashCode() + userName.length();
+		
+		return newUserID;
 	}
 }

@@ -12,12 +12,6 @@ public class Customer extends User {
 	}
 
 	@Override
-	public boolean login(ResultSet results, Scanner input) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean prompt(BankDAO dao, Scanner input) {
 		// TODO Auto-generated method stub
 		return false;
@@ -28,5 +22,9 @@ public class Customer extends User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 
 }

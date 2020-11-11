@@ -1,11 +1,29 @@
 package com.revature.util;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashSet;
 
 public class Util {
 	
 	public static String validateUserName(String userName) {
 		return null;
+	}
+	
+	public static HashSet<String> getUserNameSet(ResultSet results) {
+		HashSet<String> userNames = new HashSet<String>();
+		
+		try {
+			while(results.next()) {
+				userNames.add(results.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return userNames;
 	}
 	
 	public static void clearScreen(boolean prompt) {

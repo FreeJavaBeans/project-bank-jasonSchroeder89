@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.revature.data.BankDAO;
 import com.revature.user.Customer;
 import com.revature.user.Employee;
 import com.revature.user.NewUser;
@@ -16,6 +17,7 @@ import com.revature.util.Util;
 public class SystemUI {
 	
 	private final Scanner input;
+	private final String headerWelcome;
 	private final String header;
 	private final String ribbon;
 	private final String menuPrompt = 
@@ -24,8 +26,9 @@ public class SystemUI {
 			"Please enter your choice (1-4) then press 'Enter': ";
 	
 	public SystemUI(String bankName, Scanner scanner) {
+		this.headerWelcome = "Welcome to " + bankName + "!";
 		this.header = "Welcome to " + bankName;
-		this.ribbon = "!\n\nDigital Banking System\n----------------------\n\n";
+		this.ribbon = "\n\nDigital Banking System\n----------------------\n\n";
 		this.input = scanner;
 	}	
 	
@@ -33,7 +36,7 @@ public class SystemUI {
 		int choice = 0;
 		
 		do {
-			System.out.print(header + ribbon + menuPrompt
+			System.out.print(headerWelcome + ribbon + menuPrompt
 					+ "1) Register for a customer account\n"
 					+ "2) Customer Login\n"
 					+ "3) Employee Login\n" + "4) Exit Program\n\n"
@@ -75,18 +78,10 @@ public class SystemUI {
 	}
 	
 	public boolean regPrompt(ResultSet results, User user) {
-		HashSet<String> userNames = new HashSet<String>();
+		HashSet<String> userNames = Util.getUserNameSet(results);
 		
-		try {
-			while(results.next()) {
-				userNames.add(results.getString(1));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.print(ribbon + "Please enter the requested information"
+		System.out.print(header + ribbon 
+				+ "Please enter the requested information"
 				+ " or type 'exit' in any field to cancel\n\n");
 		
 		boolean isValidUserName = false;
@@ -168,6 +163,76 @@ public class SystemUI {
 		return true;		
 	}
 	
+	public boolean login(BankDAO dao, Scanner input) {
+		boolean validLogin = false;
+		
+		try {
+			HashSet<String> userNames = Util.getUserNameSet(
+					dao.getUserNames());
+			
+			final int maxAttempts = 5;
+			int currentAttempt = 0;
+			
+			while (currentAttempt < maxAttempts) {
+				System.out.print(header + ribbon + "Remaining attempts:");
+				
+				for (int i = 0; i < maxAttempts - currentAttempt; i++) {
+					System.out.print('*');
+				}
+				
+				System.out.println("\n Please enter your credentials, or type"
+						+ " 'exit' in any field to go back.");
+				
+				System.out.print("Please enter your username: ");
+				
+				String userName = input.next();
+				
+				if (userNames.contains(userName)) {
+					System.out.print("\n\nPlease enter your password: ");
+					
+					String password = input.next();
+					
+					if (password.equals(dao.getPassword(userName))) {
+						validLogin = true;
+						
+						break;
+					}
+					
+					else {
+						System.out.println("Error: incorrect password."
+								+ "Please enter your proper credentials");
+						
+						currentAttempt++;
+					}
+				}
+				
+				else {
+					System.out.println("\n\nError: username not found."
+							+ "Please check your spelling and try again.");
+					
+					currentAttempt++;
+					
+					Util.clearScreen(true);
+				}
+			}
+			
+			if (validLogin) {
+				return validLogin;
+			}
+			
+			else {
+				return validLogin;
+			}
+		} 
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return validLogin;
+	}
+	
 	public void regSuccessMessage() {
 		System.out.print("\n\nRegistration successful!\n\n"
 				+ "Please login to create an account.\n\n");
@@ -181,5 +246,5 @@ public class SystemUI {
 	
 	public void exitingMessage() {
 		System.out.println("Exiting program, Goodbye!\n\n");
-	}
+	}	
 }
