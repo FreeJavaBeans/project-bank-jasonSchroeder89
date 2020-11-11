@@ -8,8 +8,8 @@ import com.revature.data.BankDAO;
 public abstract class User {
 	private String firstName;
 	private String lastName;
-	private String address;
-	private String userID;
+	//private String address;
+	private String userName;
 	private String password;
 	
 	public User() {
@@ -32,20 +32,20 @@ public abstract class User {
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
+	/*public String getAddress() {
 		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
+	}*/
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getUserID() {
-		return userID;
-	}
-
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -59,4 +59,6 @@ public abstract class User {
 	public abstract boolean login(ResultSet results, Scanner input);
 	
 	public abstract boolean prompt(BankDAO dao, Scanner input);
+	
+	public abstract String getType();
 }

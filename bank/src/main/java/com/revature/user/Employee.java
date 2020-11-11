@@ -5,20 +5,27 @@ import java.util.Scanner;
 
 import com.revature.data.BankDAO;
 
-public class NewUser extends User{
+public class Employee extends User{
 	
-	public NewUser() {
+	public Employee() {
 		super();
 	}
 
 	@Override
 	public boolean login(ResultSet results, Scanner input) {
-		return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean prompt(BankDAO dao, Scanner input) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

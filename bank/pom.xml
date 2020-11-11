@@ -4,4 +4,17 @@
   <artifactId>generibank</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>GeneriBank</name>
+  
+  <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+  
+  <dependencies>
+  
+	<dependency>
+   		<groupId>org.postgresql</groupId>
+   		<artifactId>postgresql</artifactId>
+   		<version>42.2.18</version>
+	</dependency>
+	
+	</dependencies>
+
 </project>
