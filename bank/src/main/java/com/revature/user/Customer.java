@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -59,7 +60,7 @@ public class Customer extends User {
 			System.out.println("5) Transfer funds");
 			System.out.println("6) Logout");
 			
-			System.out.print("\nPlease enter your choice (1-7) "
+			System.out.print("\nPlease enter your choice (1-6) "
 					+ "then press 'Enter': ");
 			
 			try {
@@ -105,7 +106,7 @@ public class Customer extends User {
 			
 			catch (InputMismatchException e) {
 				System.out.println("\nError: Please enter a valid "
-						+ "integer choice (1-7)");
+						+ "integer choice (1-6)");
 				
 				input.nextLine();
 				
@@ -114,7 +115,7 @@ public class Customer extends User {
 				Util.clearScreen(true);
 			}
 		}
-		while (choice != 7);
+		while (choice != 6);
 		
 		return;
 	}
@@ -648,6 +649,8 @@ public class Customer extends User {
 		ResultSet results;
 		
 		try {
+			NumberFormat formatter = NumberFormat.getCurrencyInstance();
+			
 			results = dao.getAccounts(this.getCustomerID());
 			
 			System.out.println(header + "Account ID:  Account Type:  "
@@ -659,8 +662,9 @@ public class Customer extends User {
 					String type = results.getString(2);
 					double balance = results.getDouble(3);
 					
-					System.out.println("     " + accountID + "       " 
-							+ type + "      " + balance);
+					System.out.print("     " + accountID + "       " 
+							+ type + "     " + formatter.format(balance) 
+							+"\n");
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

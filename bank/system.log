@@ -1,0 +1,24 @@
+2020-11-12 13:29:47 bank [INFO] Usernames queried
+2020-11-12 13:29:52 bank [INFO] Password for user: abatsoncqueried
+2020-11-12 13:29:53 bank [INFO] Customer ID for user: abatsoncwas queried
+2020-11-12 13:29:55 bank [INFO] Accounts for Customer with id: 1were queried
+2020-11-12 13:29:59 bank [INFO] Accounts for Customer with id: 1were queried
+2020-11-12 13:30:03 bank [INFO] Balance for Account: 1changed to: 9950.0
+2020-11-12 13:35:32 bank [INFO] Usernames queried
+2020-11-12 13:35:42 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:35:43 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 13:41:36 bank [INFO] Usernames queried
+2020-11-12 13:41:41 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:41:42 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 13:45:25 bank [INFO] Usernames queried
+2020-11-12 13:45:29 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:45:31 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 13:52:48 bank [INFO] Usernames queried
+2020-11-12 13:52:54 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:52:55 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 13:58:06 bank [INFO] Usernames queried
+2020-11-12 13:58:14 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:58:23 bank [INFO] Password for user: abatsonequeried
+2020-11-12 13:58:24 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 14:10:07 bank [INFO] Usernames queried
+2020-11-12 14:12:49 bank [INFO] New Customer: theEmporer created

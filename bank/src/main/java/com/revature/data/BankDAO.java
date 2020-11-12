@@ -2,6 +2,9 @@ package com.revature.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.apache.logging.log4j.Logger;
 
 import com.revature.user.User;
 
@@ -13,9 +16,15 @@ import java.sql.PreparedStatement;
 public class BankDAO {
 	
 	private Connection conn;
+	private final Logger logger;
+	private ArrayList<String> logs = new ArrayList<String>();
 	
-	public BankDAO() {
-		
+	public BankDAO(Logger logger) {
+		this.logger = logger;
+	}
+	
+	public ArrayList<String> getLogs() {
+		return logs;
 	}
 	
 	public ResultSet getUserNames() throws SQLException {
@@ -44,6 +53,8 @@ public class BankDAO {
 			
 			throw e;
 		}
+		
+		logger.info("Usernames queried");
 				
 		return results;
 	}
@@ -80,6 +91,8 @@ public class BankDAO {
 			throw e;
 		}
 		
+		logger.info("Password for user: " + userName + "queried");
+		
 		return password;
 	}
 	
@@ -91,6 +104,8 @@ public class BankDAO {
 					System.getenv("DB_Pass"));
 			
 			conn.setSchema("bank");
+			
+			conn.setAutoCommit(false);
 			
 			PreparedStatement statement1 = conn.prepareStatement(
 					"insert into \"User\" (\"UserName\", \"Password\", "
@@ -104,8 +119,6 @@ public class BankDAO {
 			
 			statement1.close();
 			
-			System.out.println("Statement 1 ran");
-			
 			PreparedStatement statement2 = conn.prepareStatement(
 					"select \"UserID\" from \"User\" where \"UserName\" = ?");
 			
@@ -114,8 +127,6 @@ public class BankDAO {
 			ResultSet results = statement2.executeQuery();
 			
 			statement2.close();
-			
-			System.out.println("Statement 2 ran");
 			
 			results.next();
 			
@@ -135,7 +146,9 @@ public class BankDAO {
 			
 			statement3.close();
 			
-			System.out.println("Statement 3 ran");
+			conn.commit();
+			
+			conn.setAutoCommit(true);
 			
 			conn.close();
 		}
@@ -145,6 +158,8 @@ public class BankDAO {
 			
 			throw e;
 		}
+		
+		logger.info("New Customer: " + user.getUserName() + " created");
 		
 		return;
 	}
@@ -172,6 +187,9 @@ public class BankDAO {
 			statement.close();
 			
 			conn.close();
+			
+			logger.info("Accounts for Customer with id: " + customerID 
+					+ "were queried");
 			
 			return results;
 		}
@@ -220,6 +238,8 @@ public class BankDAO {
 			throw e;
 		}
 		
+		logger.info("Customer ID for user: " + userName + "was queried");
+		
 		return customerID;
 	}
 
@@ -247,6 +267,8 @@ public class BankDAO {
 			statement.close();
 			
 			conn.close();
+			
+			logger.info("New Account request added");
 		}
 		
 		catch (SQLException e) {
@@ -278,6 +300,9 @@ public class BankDAO {
 			statement.close();
 			
 			conn.close();
+			
+			logger.info("Balance for Account: " + accountNum + "changed to: "
+					+ newBalance);
 		}
 		
 		catch (SQLException e) {
@@ -306,6 +331,8 @@ public class BankDAO {
 			statement.close();
 			
 			conn.close();
+			
+			logger.info("Customer account balances queried");
 		}
 		
 		catch (SQLException e) {
@@ -348,11 +375,183 @@ public class BankDAO {
 			
 			conn.commit();
 			
+			conn.setAutoCommit(true);
+			
 			conn.close();
+			
+			logger.info("Successful transfer from Account " + sourceAccountNum
+					+ " to " + targetAccountNum);
 		}
 		
 		catch (SQLException e) {
 			throw e;
 		}
+	}
+
+	public int getEmployeeID(String userName) throws SQLException {
+		ResultSet results;
+		
+		int employeeID = 0;
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"select \"EmployeeID\" from \"Employee\" where \"UserID\" "
+					+ "in (select \"UserID\" from \"User\" where "
+					+ "\"UserName\" = ?)");
+			
+			statement.setString(1, userName);
+			
+			results = statement.executeQuery();
+			
+			statement.close();
+			
+			conn.close();
+			
+			logger.info("EmployeeID for user: " + userName + "was queried");
+			
+			results.next();
+			
+			employeeID = results.getInt(1);
+		}
+		
+		catch (SQLException e) {
+			results = null;
+			
+			throw e;
+		}
+		
+		return employeeID;
+	}
+
+	public ResultSet getRequestedAccounts() throws SQLException {
+		ResultSet results;
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"select * from \"PendingAccount\"");
+			
+			results = statement.executeQuery();
+			
+			statement.close();
+			
+			conn.close();
+			
+			logger.info("Pending accounts queried");
+		}
+		
+		catch (SQLException e) {
+			results = null;
+			
+			throw e;
+		}
+		
+		return results;
+	}
+
+	public void createAccount(int requestID) throws SQLException {
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement statement1 = conn.prepareStatement(
+					"select \"CustomerID\", \"TypeID\", \"Balance\" from "
+					+ "\"PendingAccount\" where \"PendingID\" = ?");
+			
+			statement1.setInt(1, requestID);
+			
+			ResultSet result = statement1.executeQuery();
+			
+			statement1.close();
+			
+			PreparedStatement statement2 = conn.prepareStatement(
+					"delete from \"PendingAccount\" where \"PendingID\" = ?");
+			
+			statement2.setInt(1, requestID);
+			
+			statement2.executeUpdate();
+			
+			statement2.close();
+			
+			PreparedStatement statement3 = conn.prepareStatement(
+					"insert into \"Account\" (\"CustomerID\", \"TypeID\", "
+					+ "\"Balance\") values (?, ?, ?)");
+			
+			result.next();
+			
+			statement3.setInt(1, result.getInt(1));
+			
+			statement3.setInt(2, result.getInt(2));
+			
+			statement3.setDouble(3, result.getDouble(3));
+			
+			statement3.executeUpdate();
+			
+			statement3.close();
+			
+			conn.commit();
+			
+			conn.setAutoCommit(true);
+			
+			conn.close();
+			
+			logger.info("Pending Account " + requestID + " was approved and "
+					+ "created");
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}		
+	}
+
+	public ResultSet getCustomerAccounts() throws SQLException {
+		ResultSet results;
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"select * from \"Account\"");
+			
+			results = statement.executeQuery();
+			
+			statement.close();
+			
+			conn.close();
+			
+			logger.info("Customer accounts were queried");
+		}
+		
+		catch (SQLException e) {
+			results = null;
+			
+			throw e;
+		}
+		
+		return results;
 	}
 }

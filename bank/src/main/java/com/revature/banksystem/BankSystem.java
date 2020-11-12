@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.Logger;
+
 import com.revature.data.BankDAO;
 import com.revature.ui.SystemUI;
 import com.revature.user.User;
@@ -20,11 +22,11 @@ public class BankSystem {
 	private boolean regSuccess;
 	private int loginSuccess;
 	
-	public BankSystem(String bankName) {
+	public BankSystem(String bankName, Logger logger) {
 		this.bankName = bankName;
 		this.input = new Scanner(System.in);
 		this.ui = new SystemUI(bankName, input);
-		this.dao = new BankDAO();
+		this.dao = new BankDAO(logger);
 	}
 	
 	public void run() {
@@ -75,8 +77,6 @@ public class BankSystem {
 				loginSuccess = ui.login(user, dao, input);
 				
 				if (loginSuccess == 1) {
-					ui.loginSuccessMessage();
-					
 					Util.clearScreen(true);
 					
 					user.prompt(bankName, dao, input);
