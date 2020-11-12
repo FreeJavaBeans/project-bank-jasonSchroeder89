@@ -91,7 +91,7 @@ public class BankDAO {
 			throw e;
 		}
 		
-		logger.info("Password for user: " + userName + "queried");
+		logger.info("Password for user: " + userName + " queried");
 		
 		return password;
 	}
@@ -189,7 +189,7 @@ public class BankDAO {
 			conn.close();
 			
 			logger.info("Accounts for Customer with id: " + customerID 
-					+ "were queried");
+					+ " were queried");
 			
 			return results;
 		}
@@ -238,7 +238,7 @@ public class BankDAO {
 			throw e;
 		}
 		
-		logger.info("Customer ID for user: " + userName + "was queried");
+		logger.info("Customer ID for user: " + userName + " was queried");
 		
 		return customerID;
 	}
@@ -301,7 +301,7 @@ public class BankDAO {
 			
 			conn.close();
 			
-			logger.info("Balance for Account: " + accountNum + "changed to: "
+			logger.info("Balance for Account: " + accountNum + " changed to: "
 					+ newBalance);
 		}
 		
@@ -414,7 +414,7 @@ public class BankDAO {
 			
 			conn.close();
 			
-			logger.info("EmployeeID for user: " + userName + "was queried");
+			logger.info("EmployeeID for user: " + userName + " was queried");
 			
 			results.next();
 			

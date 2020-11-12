@@ -110,6 +110,8 @@ public class Employee extends User{
 
 	private void viewAccounts(BankDAO dao) {
 		try {
+			Util.clearScreen(false);
+			
 			NumberFormat formatter = NumberFormat.getCurrencyInstance();
 			
 			System.out.println(header + "Customer Accounts:\n");
@@ -135,6 +137,8 @@ public class Employee extends User{
 	
 	private void viewLogs() {
 		try {
+			Util.clearScreen(false);
+			
 			System.out.println(header + "Transaction log\n");
 			
 			File log = new File("/home/jason/data/repos/revature/project/"
@@ -145,7 +149,7 @@ public class Employee extends User{
 			while(logReader.hasNextLine()) {
 				String logLine = logReader.nextLine();
 				
-				System.out.print(logLine);
+				System.out.print("\n" + logLine);
 			}
 			
 			logReader.close();
@@ -165,6 +169,8 @@ public class Employee extends User{
 		
 		do {
 			try {
+				Util.clearScreen(false);
+				
 				NumberFormat formatter = NumberFormat.getCurrencyInstance();
 				
 				ResultSet requests = dao.getRequestedAccounts();

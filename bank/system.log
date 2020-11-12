@@ -22,3 +22,12 @@
 2020-11-12 13:58:24 bank [INFO] EmployeeID for user: abatsonewas queried
 2020-11-12 14:10:07 bank [INFO] Usernames queried
 2020-11-12 14:12:49 bank [INFO] New Customer: theEmporer created
+2020-11-12 14:40:51 bank [INFO] Usernames queried
+2020-11-12 14:41:01 bank [INFO] Password for user: abatsonequeried
+2020-11-12 14:41:02 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 14:41:04 bank [INFO] Pending accounts queried
+2020-11-12 14:41:06 bank [INFO] Pending Account 1 was approved and created
+2020-11-12 14:41:06 bank [INFO] Pending accounts queried
+2020-11-12 14:42:08 bank [INFO] Usernames queried
+2020-11-12 14:42:14 bank [INFO] Password for user: abatsonequeried
+2020-11-12 14:42:15 bank [INFO] EmployeeID for user: abatsonewas queried
