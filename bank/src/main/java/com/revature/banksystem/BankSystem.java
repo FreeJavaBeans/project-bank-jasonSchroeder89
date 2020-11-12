@@ -19,7 +19,6 @@ public class BankSystem {
 	private ResultSet results;
 	private boolean regSuccess;
 	private int loginSuccess;
-	private boolean runUserSession;
 	
 	public BankSystem(String bankName) {
 		this.bankName = bankName;

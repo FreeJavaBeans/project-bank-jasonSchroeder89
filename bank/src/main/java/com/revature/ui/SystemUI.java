@@ -254,10 +254,10 @@ public class SystemUI {
 	}
 	
 	public void exitingMessage() {
-		System.out.println("Exiting program, Goodbye!\n\n");
+		System.out.println("Exiting program, Goodbye!\n");
 	}
 
 	public void loginSuccessMessage() {
-		System.out.println("\nLogin Successful!");		
+		System.out.print("\nLogin Successful!");		
 	}	
 }

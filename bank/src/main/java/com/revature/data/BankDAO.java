@@ -221,5 +221,138 @@ public class BankDAO {
 		}
 		
 		return customerID;
-	}	
+	}
+
+	public void requestAccount(int customerID, int accountType, 
+			double newBalance) throws SQLException {
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"insert into \"PendingAccount\" (\"CustomerID\", "
+					+ "\"TypeID\", \"Balance\") values (?, ?, ?)");
+			
+			statement.setInt(1, customerID);
+			statement.setInt(2, accountType);
+			statement.setDouble(3, newBalance);
+			
+			statement.executeUpdate();
+			
+			statement.close();
+			
+			conn.close();
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	public void setNewAccountBalance(int accountNum, double newBalance) 
+			throws SQLException {
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"update \"Account\" set \"Balance\" = ? where "
+					+ "\"AccountID\" = ?");
+			
+			statement.setDouble(1, newBalance);
+			
+			statement.setInt(2, accountNum);
+			
+			statement.executeUpdate();
+			
+			statement.close();
+			
+			conn.close();
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}
+		
+	}
+
+	public ResultSet getAccountBalances() throws SQLException {
+		ResultSet results;
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			PreparedStatement statement = conn.prepareStatement(
+					"select \"AccountID\", \"Balance\", \"CustomerID\" "
+					+ "from \"Account\"");
+			
+			results = statement.executeQuery();
+			
+			statement.close();
+			
+			conn.close();
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}		
+		
+		return results;
+	}
+
+	public void transferFunds(int sourceAccountNum, double newSourceBalance, 
+			int targetAccountNum, double newTargetBalance) throws SQLException {
+		
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:postgresql://localhost:5432/postgres", 
+					System.getenv("DB_User"), 
+					System.getenv("DB_Pass"));
+			
+			conn.setSchema("bank");
+			
+			conn.setAutoCommit(false);
+			
+			PreparedStatement statement1 = conn.prepareStatement(
+					"update \"Account\" set \"Balance\" = ? where "
+					+ "\"AccountID\" = ?");
+			
+			statement1.setDouble(1, newSourceBalance);
+			statement1.setInt(2, sourceAccountNum);			
+			statement1.executeUpdate();			
+			statement1.close();
+			
+			PreparedStatement statement2 = conn.prepareStatement(
+					"update \"Account\" set \"Balance\" = ? where "
+					+ "\"AccountID\" = ?");
+			
+			statement2.setDouble(1, newTargetBalance);
+			statement2.setInt(2, targetAccountNum);			
+			statement2.executeUpdate();			
+			statement2.close();
+			
+			conn.commit();
+			
+			conn.close();
+		}
+		
+		catch (SQLException e) {
+			throw e;
+		}
+	}
 }

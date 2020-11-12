@@ -22,8 +22,4 @@ public class Employee extends User{
 		// TODO Auto-generated method stub
 		return "Employee";
 	}
-
-
-
-	
 }
