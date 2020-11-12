@@ -1,6 +1,5 @@
 package com.revature.user;
 
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 import com.revature.data.BankDAO;
@@ -12,13 +11,8 @@ public class NewUser extends User{
 	}
 	
 	@Override
-	public boolean login(ResultSet results, Scanner input) {
-		return false;
-	}
-
-	@Override
-	public boolean prompt(BankDAO dao, Scanner input) {
-		return false;
+	public void prompt(String bankName, BankDAO dao, Scanner input) {
+		return;
 	}
 
 	@Override

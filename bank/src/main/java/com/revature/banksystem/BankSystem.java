@@ -6,22 +6,23 @@ import java.util.Scanner;
 
 import com.revature.data.BankDAO;
 import com.revature.ui.SystemUI;
-import com.revature.user.NewUser;
 import com.revature.user.User;
 import com.revature.util.Util;
 
 public class BankSystem {
 	
+	private final String bankName;
 	private Scanner input;
 	private SystemUI ui;
 	private User user;
 	private BankDAO dao;
 	private ResultSet results;
 	private boolean regSuccess;
-	private boolean loginSuccess;
+	private int loginSuccess;
 	private boolean runUserSession;
 	
 	public BankSystem(String bankName) {
+		this.bankName = bankName;
 		this.input = new Scanner(System.in);
 		this.ui = new SystemUI(bankName, input);
 		this.dao = new BankDAO();
@@ -30,6 +31,8 @@ public class BankSystem {
 	public void run() {
 		do {
 			user = ui.welcomePrompt();
+			
+			Util.clearScreen(false);
 			
 			if (user == null) {
 				System.out.println("\nGoodbye!\n");
@@ -63,31 +66,36 @@ public class BankSystem {
 				}
 				
 				catch (SQLException e) {
-					System.out.println("Error Connecting to Database:"
-							+ e.getStackTrace());
-					
-					System.out.println("Debug connection!");
+					e.getStackTrace();
 					
 					return;
 				}
 			}
 			
 			else {
-				loginSuccess = ui.login(dao, input);
+				loginSuccess = ui.login(user, dao, input);
 				
-				if (loginSuccess) {
-					runUserSession = true;
+				if (loginSuccess == 1) {
+					ui.loginSuccessMessage();
 					
-					while (runUserSession) {
-						runUserSession = user.prompt(dao, input);
-					}
+					Util.clearScreen(true);
+					
+					user.prompt(bankName, dao, input);
 					
 					Util.clearScreen(false);
 					
 					continue;
 				}
 				
+				else if (loginSuccess == -1) {
+					Util.clearScreen(false);
+					
+					continue;
+				}
+				
 				else {
+					ui.exceedLoginAttemptsMessage();
+					
 					ui.exitingMessage();
 					
 					return;

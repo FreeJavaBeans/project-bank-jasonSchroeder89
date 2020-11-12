@@ -1,16 +1,17 @@
 package com.revature.user;
 
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 import com.revature.data.BankDAO;
 
 public abstract class User {
+	
 	private String firstName;
 	private String lastName;
 	//private String address;
 	private String userName;
 	private String password;
+	
 	
 	public User() {
 		
@@ -56,7 +57,7 @@ public abstract class User {
 		this.password = password;
 	}
 	
-	public abstract boolean prompt(BankDAO dao, Scanner input);
+	public abstract void prompt(String bankName, BankDAO dao, Scanner input);
 	
 	public abstract String getType();
 }

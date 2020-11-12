@@ -12,15 +12,15 @@ public class Employee extends User{
 	}
 
 	@Override
-	public boolean prompt(BankDAO dao, Scanner input) {
+	public void prompt(String bankName, BankDAO dao, Scanner input) {
 		// TODO Auto-generated method stub
-		return false;
+		return;
 	}
 
 	@Override
 	public String getType() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Employee";
 	}
 
 

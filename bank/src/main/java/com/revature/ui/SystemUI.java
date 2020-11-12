@@ -1,6 +1,5 @@
 package com.revature.ui;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -50,11 +49,14 @@ public class SystemUI {
 				}
 			}
 			catch (InputMismatchException e){
+				System.out.println("\nError: Please enter a valid "
+						+ "integer choice (1-4)");
+				
 				input.nextLine();
 				
-				Util.clearScreen(true);
+				choice = 0;
 				
-				continue;
+				Util.clearScreen(true);
 			}
 		}
 		while (choice == 0);
@@ -163,8 +165,8 @@ public class SystemUI {
 		return true;		
 	}
 	
-	public boolean login(BankDAO dao, Scanner input) {
-		boolean validLogin = false;
+	public int login(User user, BankDAO dao, Scanner input) {
+		int returnCode = 0;
 		
 		try {
 			HashSet<String> userNames = Util.getUserNameSet(
@@ -174,54 +176,61 @@ public class SystemUI {
 			int currentAttempt = 0;
 			
 			while (currentAttempt < maxAttempts) {
-				System.out.print(header + ribbon + "Remaining attempts:");
+				System.out.print(header + ribbon + "Remaining attempts: ");
 				
 				for (int i = 0; i < maxAttempts - currentAttempt; i++) {
 					System.out.print('*');
 				}
 				
-				System.out.println("\n Please enter your credentials, or type"
+				System.out.println("\n\nPlease enter your credentials, or type"
 						+ " 'exit' in any field to go back.");
 				
-				System.out.print("Please enter your username: ");
+				System.out.print("\nPlease enter your username: ");
 				
 				String userName = input.next();
 				
+				if (userName.toLowerCase().equals("exit")) {
+					returnCode = -1;
+					break;
+				}
+				
 				if (userNames.contains(userName)) {
-					System.out.print("\n\nPlease enter your password: ");
+					System.out.print("\nPlease enter your password: ");
 					
 					String password = input.next();
 					
+					if (password.toLowerCase().equals("exit")) {
+						returnCode = -1;
+						
+						break;
+					}
+					
 					if (password.equals(dao.getPassword(userName))) {
-						validLogin = true;
+						returnCode = 1;
+						
+						user.setUserName(userName);
 						
 						break;
 					}
 					
 					else {
-						System.out.println("Error: incorrect password."
+						System.out.print("Error: incorrect password. "
 								+ "Please enter your proper credentials");
+						
+						Util.clearScreen(true);
 						
 						currentAttempt++;
 					}
 				}
 				
 				else {
-					System.out.println("\n\nError: username not found."
-							+ "Please check your spelling and try again.");
+					System.out.print("\nError: username not found."
+							+ " Please check your spelling and try again.");
 					
 					currentAttempt++;
 					
 					Util.clearScreen(true);
 				}
-			}
-			
-			if (validLogin) {
-				return validLogin;
-			}
-			
-			else {
-				return validLogin;
 			}
 		} 
 		
@@ -230,7 +239,7 @@ public class SystemUI {
 			e.printStackTrace();
 		}
 		
-		return validLogin;
+		return returnCode;
 	}
 	
 	public void regSuccessMessage() {
@@ -239,12 +248,16 @@ public class SystemUI {
 	}
 	
 	public void exceedLoginAttemptsMessage() {
-		System.out.println("You have exceeded the maximum number of allowed"
+		System.out.println("\nYou have exceeded the maximum number of allowed"
 				+ " login attempts.\n\nPlease restart the program and try"
-				+ " again\n\n");
+				+ " again\n");
 	}
 	
 	public void exitingMessage() {
 		System.out.println("Exiting program, Goodbye!\n\n");
+	}
+
+	public void loginSuccessMessage() {
+		System.out.println("\nLogin Successful!");		
 	}	
 }
