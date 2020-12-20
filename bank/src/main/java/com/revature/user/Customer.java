@@ -349,8 +349,7 @@ public class Customer extends User {
 				
 				catch (InputMismatchException e) {
 					System.out.println("\nError: Please enter a valid choice "
-							+ "(1 - " + accountBalances.size() + ") or '0' to "
-							+ "exit");
+							+ "or '0' to exit");
 					
 					input.nextLine();
 					
@@ -479,8 +478,7 @@ public class Customer extends User {
 				
 				catch (InputMismatchException e) {
 					System.out.println("\nError: Please enter a valid choice "
-							+ "(1 - " + accountBalances.size() + ") or '0' to "
-							+ "exit");
+							+ "or '0' to exit");
 					
 					input.nextLine();
 					

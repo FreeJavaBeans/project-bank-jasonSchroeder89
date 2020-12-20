@@ -462,7 +462,7 @@ public class BankDAO {
 		return results;
 	}
 
-	public void createAccount(int requestID) throws SQLException {
+	public void createAccount(int employeeID, int requestID) throws SQLException {
 		try {
 			conn = DriverManager.getConnection(
 					"jdbc:postgresql://localhost:5432/postgres", 
@@ -514,8 +514,8 @@ public class BankDAO {
 			
 			conn.close();
 			
-			logger.info("Pending Account " + requestID + " was approved and "
-					+ "created");
+			logger.info("Pending Account " + requestID + " was approved by "
+					+ "Employee " + employeeID + " and created");
 		}
 		
 		catch (SQLException e) {

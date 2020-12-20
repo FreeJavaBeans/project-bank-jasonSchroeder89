@@ -31,3 +31,57 @@
 2020-11-12 14:42:08 bank [INFO] Usernames queried
 2020-11-12 14:42:14 bank [INFO] Password for user: abatsonequeried
 2020-11-12 14:42:15 bank [INFO] EmployeeID for user: abatsonewas queried
+2020-11-12 14:58:50 bank [INFO] Usernames queried
+2020-11-12 14:58:55 bank [INFO] Password for user: abatsone queried
+2020-11-12 14:58:56 bank [INFO] EmployeeID for user: abatsone was queried
+2020-11-12 14:58:58 bank [INFO] Pending accounts queried
+2020-11-12 14:59:24 bank [INFO] Usernames queried
+2020-11-12 14:59:29 bank [INFO] Password for user: abatsone queried
+2020-11-12 14:59:29 bank [INFO] EmployeeID for user: abatsone was queried
+2020-11-12 14:59:35 bank [INFO] Customer accounts were queried
+2020-11-12 14:59:40 bank [INFO] Pending accounts queried
+2020-11-12 14:59:42 bank [INFO] Pending Account 1 was approved by Employee 2 and created
+2020-11-12 14:59:42 bank [INFO] Pending accounts queried
+2020-11-12 15:00:56 bank [INFO] Usernames queried
+2020-11-12 15:01:43 bank [INFO] Usernames queried
+2020-11-12 15:23:00 bank [INFO] Usernames queried
+2020-11-12 15:23:05 bank [INFO] Password for user: jschro89 queried
+2020-11-12 15:23:07 bank [INFO] EmployeeID for user: jschro89 was queried
+2020-11-12 15:23:09 bank [INFO] Customer accounts were queried
+2020-11-12 16:34:13 bank [INFO] Usernames queried
+2020-11-12 16:34:25 bank [INFO] New Customer: darthVader created
+2020-11-12 16:34:27 bank [INFO] Usernames queried
+2020-11-12 16:36:14 bank [INFO] Password for user: darthVader queried
+2020-11-12 16:36:15 bank [INFO] Customer ID for user: darthVader was queried
+2020-11-12 16:36:17 bank [INFO] Accounts for Customer with id: 5 were queried
+2020-11-12 16:36:20 bank [INFO] Accounts for Customer with id: 5 were queried
+2020-11-12 16:52:26 bank [INFO] Usernames queried
+2020-11-12 16:53:05 bank [INFO] Password for user: abatsonc queried
+2020-11-12 16:53:06 bank [INFO] Customer ID for user: abatsonc was queried
+2020-11-12 16:53:10 bank [INFO] Accounts for Customer with id: 1 were queried
+2020-11-12 16:53:58 bank [INFO] New Account request added
+2020-11-12 16:54:05 bank [INFO] Accounts for Customer with id: 1 were queried
+2020-11-12 16:54:19 bank [INFO] Balance for Account: 1 changed to: 9499.82
+2020-11-12 16:54:24 bank [INFO] Accounts for Customer with id: 1 were queried
+2020-11-12 16:54:41 bank [INFO] Accounts for Customer with id: 1 were queried
+2020-11-12 16:54:54 bank [INFO] Balance for Account: 2 changed to: 250500.32
+2020-11-12 16:54:59 bank [INFO] Accounts for Customer with id: 1 were queried
+2020-11-12 16:55:18 bank [INFO] Usernames queried
+2020-11-12 16:55:52 bank [INFO] New Customer: darthVader created
+2020-11-12 16:56:01 bank [INFO] Usernames queried
+2020-11-12 16:56:25 bank [INFO] Password for user: darthVader queried
+2020-11-12 16:56:27 bank [INFO] Customer ID for user: darthVader was queried
+2020-11-12 16:56:29 bank [INFO] Accounts for Customer with id: 5 were queried
+2020-11-12 16:56:38 bank [INFO] Usernames queried
+2020-11-12 16:56:50 bank [INFO] Password for user: jschro89 queried
+2020-11-12 16:56:51 bank [INFO] EmployeeID for user: jschro89 was queried
+2020-11-12 16:56:54 bank [INFO] Customer accounts were queried
+2020-11-12 16:57:16 bank [INFO] Pending accounts queried
+2020-11-12 16:57:33 bank [INFO] Pending Account 1 was approved by Employee 1 and created
+2020-11-12 16:57:33 bank [INFO] Pending accounts queried
+2020-11-12 16:58:36 bank [INFO] Usernames queried
+2020-11-12 16:58:43 bank [INFO] Password for user: abatsonc queried
+2020-11-12 16:58:44 bank [INFO] Customer ID for user: abatsonc was queried
+2020-11-12 16:58:48 bank [INFO] Customer account balances queried
+2020-11-12 16:59:07 bank [INFO] Successful transfer from Account 2 to 1
+2020-11-12 16:59:10 bank [INFO] Accounts for Customer with id: 1 were queried

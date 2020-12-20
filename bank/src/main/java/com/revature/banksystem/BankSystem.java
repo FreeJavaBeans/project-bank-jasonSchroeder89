@@ -74,6 +74,8 @@ public class BankSystem {
 			}
 			
 			else {
+				Util.clearScreen(false);
+				
 				loginSuccess = ui.login(user, dao, input);
 				
 				if (loginSuccess == 1) {
